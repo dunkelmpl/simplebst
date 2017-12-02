@@ -89,7 +89,7 @@ BSTNode* SimpleBST::searchChildNode(BSTNode* parentNode, int value)
         return parentNode;
     }
 
-    return (parentNode->value < value)
+    return (value < parentNode->value)
         ? searchChildNode(parentNode->left, value)
         : searchChildNode(parentNode->right, value);
 }
