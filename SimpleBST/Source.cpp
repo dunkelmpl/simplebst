@@ -278,20 +278,35 @@ int main()
     {
         SimpleBST bst({479, 359, 465, 963, 706, 300, 320});
 
+        auto& search = [&bst]() {
+            vector<int> searching{ 465, 200, 320, 963, 11 };
+            for (auto& item : searching) {
+                BSTNode* node = bst.searchNode(item);
+                cout << item << " was " << (node != nullptr ? "found" : "not found") << endl;
+            }
+            cout << endl;
+        };
+
         bst.BFS(INORDER);
         bst.BFS(PREORDER);
         bst.BFS(POSTORDER);
 
         cout << endl;
 
+        search();
+
         bst.deleteNode(359);
         bst.deleteNode(320);
         bst.deleteNode(479);
+        bst.deleteNode(963);
 
         bst.BFS(INORDER);
         bst.BFS(PREORDER);
         bst.BFS(POSTORDER);
 
+        cout << endl;
+
+        search();
     }
 
     _CrtDumpMemoryLeaks();
