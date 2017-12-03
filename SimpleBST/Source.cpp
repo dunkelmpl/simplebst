@@ -286,7 +286,15 @@ void SimpleBST::DFS(const char* label)
 int main()
 {
     {
-        SimpleBST bst({479, 359, 465, 963, 706, 300, 320});
+        vector<int> orig{ 479, 359, 465, 963, 706, 300, 320 };
+        cout.width(PRINT_LABEL_WIDTH);
+        cout << left << "Original input: ";
+        for (auto& num : orig) {
+            cout << num << ' ';
+        }
+        cout << "\n\n";
+
+        SimpleBST bst(orig);
 
         auto& search = [&bst]() {
             vector<int> searching{ 465, 200, 320, 963, 11 };
