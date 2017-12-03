@@ -261,7 +261,7 @@ void SimpleBST::DFS()
         BSTNode* current = nodesQueue.front();
         nodesQueue.pop();
 
-        cout << current->value;
+        cout << current->value << ' ';
 
         if (current->left) {
             nodesQueue.push(current->left);
@@ -271,6 +271,8 @@ void SimpleBST::DFS()
             nodesQueue.push(current->right);
         }
     }
+
+    cout << endl;
 }
 
 int main()
@@ -290,6 +292,7 @@ int main()
         bst.BFS(INORDER);
         bst.BFS(PREORDER);
         bst.BFS(POSTORDER);
+        bst.DFS();
 
         cout << endl;
 
@@ -303,6 +306,7 @@ int main()
         bst.BFS(INORDER);
         bst.BFS(PREORDER);
         bst.BFS(POSTORDER);
+        bst.DFS();
 
         cout << endl;
 
