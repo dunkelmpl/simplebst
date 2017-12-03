@@ -324,10 +324,17 @@ int main()
 
         search();
 
-        bst.deleteNode(359);
-        bst.deleteNode(320);
-        bst.deleteNode(479);
-        bst.deleteNode(963);
+        auto& deleteNodes = [&bst]() {
+            vector<int> deleting{ 359, 320, 479, 963 };
+            for (auto& item : deleting) {
+
+                cout << "Deleting " << item << endl;
+                bst.deleteNode(item);
+            }
+            cout << endl;
+        };
+
+        deleteNodes();
 
         printTraversals();
 
