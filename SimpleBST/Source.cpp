@@ -8,6 +8,8 @@
 #include <queue>
 #include <vector>
 
+#define PRINT_LABEL_WIDTH (30)
+
 using namespace std;
 
 struct BSTNode {
@@ -34,8 +36,8 @@ public:
     void addNode(int value);
     void deleteNode(int value);
 
-    void BFS(Traversal traversal);
-    void DFS();
+    void BFS(Traversal traversal, const char* label);
+    void DFS(const char* label);
 
 protected:
     BSTNode* searchChildNode(BSTNode *parent, int value);
@@ -214,8 +216,11 @@ BSTNode* SimpleBST::findNearestSuccessor(BSTNode* current, BSTNode** parent)
     return current;
 }
 
-void SimpleBST::BFS(Traversal traversal)
+void SimpleBST::BFS(Traversal traversal, const char* label)
 {
+    cout.width(PRINT_LABEL_WIDTH);
+    cout << left << label;
+
     BFSChild(top, traversal);
     cout << endl;
 }
@@ -247,8 +252,11 @@ void SimpleBST::BFSChild(BSTNode* parent, Traversal traversal)
     }
 }
 
-void SimpleBST::DFS()
+void SimpleBST::DFS(const char* label)
 {
+    cout.width(PRINT_LABEL_WIDTH);
+    cout << left << label;
+
     if (!top) {
         return;
     }
@@ -283,18 +291,28 @@ int main()
         auto& search = [&bst]() {
             vector<int> searching{ 465, 200, 320, 963, 11 };
             for (auto& item : searching) {
+                stringstream s;
+                s << "Searching " << item << ": ";
+
+                cout.width(PRINT_LABEL_WIDTH);
+                cout << left << s.str();
+
                 BSTNode* node = bst.searchNode(item);
-                cout << item << " was " << (node != nullptr ? "found" : "not found") << endl;
+                cout << (node != nullptr ? "found" : "not found") << endl;
             }
             cout << endl;
         };
 
-        bst.BFS(INORDER);
-        bst.BFS(PREORDER);
-        bst.BFS(POSTORDER);
-        bst.DFS();
+        auto& printTraversals = [&bst]() {
+            bst.BFS(INORDER, "BFS Inorder Traversal: ");
+            bst.BFS(PREORDER, "BFS Preorder Traversal: ");
+            bst.BFS(POSTORDER, "BFS Postorder Traversal: ");
+            bst.DFS("DFS Preorder Traversal: ");
 
-        cout << endl;
+            cout << endl;
+        };
+
+        printTraversals();
 
         search();
 
@@ -303,12 +321,7 @@ int main()
         bst.deleteNode(479);
         bst.deleteNode(963);
 
-        bst.BFS(INORDER);
-        bst.BFS(PREORDER);
-        bst.BFS(POSTORDER);
-        bst.DFS();
-
-        cout << endl;
+        printTraversals();
 
         search();
     }
