@@ -36,8 +36,8 @@ public:
     void addNode(int value);
     void deleteNode(int value);
 
-    void BFS(Traversal traversal, const char* label);
-    void DFS(const char* label);
+    void DFS(Traversal traversal, const char* label);
+    void BFS(const char* label);
 
 protected:
     BSTNode* searchChildNode(BSTNode *parent, int value);
@@ -46,7 +46,7 @@ protected:
     BSTNode* findNearestSuccessor(BSTNode* current, BSTNode** parent);
 
 protected:
-    void BFSChild(BSTNode* parent, Traversal traversal);
+    void DFSChild(BSTNode* parent, Traversal traversal);
 
 private:
     BSTNode *top;
@@ -216,16 +216,16 @@ BSTNode* SimpleBST::findNearestSuccessor(BSTNode* current, BSTNode** parent)
     return current;
 }
 
-void SimpleBST::BFS(Traversal traversal, const char* label)
+void SimpleBST::DFS(Traversal traversal, const char* label)
 {
     cout.width(PRINT_LABEL_WIDTH);
     cout << left << label;
 
-    BFSChild(top, traversal);
+    DFSChild(top, traversal);
     cout << endl;
 }
 
-void SimpleBST::BFSChild(BSTNode* parent, Traversal traversal)
+void SimpleBST::DFSChild(BSTNode* parent, Traversal traversal)
 {
     if (!parent) {
         return;
@@ -234,25 +234,25 @@ void SimpleBST::BFSChild(BSTNode* parent, Traversal traversal)
     if (traversal == PREORDER) {
         cout << parent->value << ' ';
 
-        BFSChild(parent->left, traversal);
-        BFSChild(parent->right, traversal);
+        DFSChild(parent->left, traversal);
+        DFSChild(parent->right, traversal);
     }
     else if (traversal == INORDER) {
-        BFSChild(parent->left, traversal);
+        DFSChild(parent->left, traversal);
 
         cout << parent->value << ' ';
 
-        BFSChild(parent->right, traversal);
+        DFSChild(parent->right, traversal);
     }
     else { //POSTORDER
-        BFSChild(parent->left, traversal);
-        BFSChild(parent->right, traversal);
+        DFSChild(parent->left, traversal);
+        DFSChild(parent->right, traversal);
 
         cout << parent->value << ' ';
     }
 }
 
-void SimpleBST::DFS(const char* label)
+void SimpleBST::BFS(const char* label)
 {
     cout.width(PRINT_LABEL_WIDTH);
     cout << left << label;
@@ -312,10 +312,10 @@ int main()
         };
 
         auto& printTraversals = [&bst]() {
-            bst.BFS(INORDER, "BFS Inorder Traversal: ");
-            bst.BFS(PREORDER, "BFS Preorder Traversal: ");
-            bst.BFS(POSTORDER, "BFS Postorder Traversal: ");
-            bst.DFS("DFS Preorder Traversal: ");
+            bst.DFS(INORDER, "DFS Inorder Traversal: ");
+            bst.DFS(PREORDER, "DFS Preorder Traversal: ");
+            bst.DFS(POSTORDER, "DFS Postorder Traversal: ");
+            bst.BFS("BFS Preorder Traversal: ");
 
             cout << endl;
         };
